@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "775205014261",
+    "project_id": "fimetlo",
+    "storage_bucket": "fimetlo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:775205014261:android:3692c97c7dd808d6b593bc",
+        "android_client_info": {
+          "package_name": "com.example.fimetlo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "775205014261-er0097q427fg3auiqc442823dusthlmq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsyFWwlF5zHGUQElPxTk72qj_3yv2jpbI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "775205014261-er0097q427fg3auiqc442823dusthlmq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

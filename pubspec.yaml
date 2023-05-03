@@ -37,7 +37,11 @@ dependencies:
   google_sign_in: ^6.1.0
   carousel_slider: ^4.0.0
   awesome_notifications: ^0.7.4+1
- 
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_rating_bar: ^4.0.1
+
+
 flutter_native_splash:
   color: "#ffffff"
   image: assets/photo_2022-07-14_17-22-41-modified.png

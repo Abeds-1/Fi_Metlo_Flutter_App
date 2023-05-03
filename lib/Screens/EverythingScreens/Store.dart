@@ -46,16 +46,7 @@ class Store extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      login["getIsloggedin"]()
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => PersonalPage(
-                                        darkMode: darkMode,
-                                        login: login,
-                                        guest: guest,
-                                      )))
-                          : () {};
+                      
                     },
                   ),
                 ),

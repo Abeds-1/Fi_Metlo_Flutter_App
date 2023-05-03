@@ -1,19 +1,20 @@
 import 'package:fimetlo/Screens/EverythingScreens/Store.dart';
 import 'package:fimetlo/main.dart';
 import 'package:flutter/material.dart';
-import 'package:fimetlo/From_mimi/12.1%20dummy_data.dart';
-import 'package:fimetlo/From_mimi/category_item.dart';
+import 'package:fimetlo/Categories/12.1%20dummy_data.dart';
+import 'package:fimetlo/Categories/category_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, this.darkMode, this.globalKey, this.arabic, this.login});
+  const HomePage({super.key, this.darkMode, this.globalKey, this.arabic, this.login, this.guest});
   final login;
   final globalKey;
   final darkMode;
   final arabic;
+  final guest;
 
   //  Container(
   //           alignment: Alignment.topRight,
@@ -48,9 +49,9 @@ class _HomePageState extends State<HomePage> {
   late Size screenSize = MediaQuery.of(context).size;
   final TextEditingController _searchController = TextEditingController();
   final List<String> _imageUrls = [
-  'https://via.placeholder.com/300/00001c/FFFFFF',
-  'https://via.placeholder.com/300/00001c/FFFFFF',
-  'https://via.placeholder.com/300/00001c/FFFFFF',
+ 'assets/Untitled-1 (1).png',
+    'assets/Untitled-1 (2).png',
+    'assets/Untitled-1 (3).png',
 ];
   @override
   Widget build(BuildContext context) {
@@ -91,14 +92,16 @@ class _HomePageState extends State<HomePage> {
                          CarouselSlider(
                              items: _imageUrls.map((image) {
                                return Container(
-                                
+                               alignment: Alignment.center,
+                                height: 100,
+                                width: 300,
                                  margin: EdgeInsets.symmetric(horizontal: 10),
                                  decoration: BoxDecoration(
-                                  
+                                  color: Colors.white,
                                    borderRadius: BorderRadius.all(Radius.circular(20)),
                                    image: DecorationImage(
-                                     image: NetworkImage(image),
-                                     fit: BoxFit.cover,
+                                     image: AssetImage(image),
+                                     fit: BoxFit.fitHeight,
                                    ),
                                  ),
                                );
@@ -156,7 +159,8 @@ class _HomePageState extends State<HomePage> {
                                       catData.id,
                                       catData.title,
                                       widget.darkMode["getIsDarkMode"]() ? Color(0xFF00001c) : catData.color,
-                                      widget.darkMode["getIsDarkMode"]() ? Colors.white : Colors.black
+                                      widget.darkMode["getIsDarkMode"]() ? Colors.white : Colors.black,
+                                      catData.image,
                                     ),
                                   )
                                   .toList()]),
@@ -228,140 +232,169 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 7 / 732 * screenSize.height,
+                Visibility(
+                  visible: widget.login["getIsLoggedin"](),
+                  child: SizedBox(
+                    height:  7 / 732 * screenSize.height,
+                  ),
                 ),
-                Row(
-                  textDirection: widget.arabic["getIsArabic"]()? TextDirection.rtl : TextDirection.ltr,
-                  children: [
-                    SizedBox(width: 10,),
-                    Container(
-                          width: 70 / 412 * screenSize.width,
-                          height: 70 / 732 * screenSize.height,
-                          decoration: BoxDecoration(
-                             boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.5),
-                                      blurRadius: 4.0,
-                                      spreadRadius: 4.0,
-                                    ),
-                                  ],
-                            border: Border.all(width: 2, color: Colors.white),
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: NetworkImage(
-                                    "https://pbs.twimg.com/media/DZotU1hW0AEDN5F.jpg:large"),
-                              )),
-                        ),
-                        SizedBox(
-                          width: 10 / 412 * screenSize.width,
-                        ),
-                        Column(
-                          crossAxisAlignment: widget.arabic["getIsArabic"]()? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                Center(
+                  child: Visibility(
+                    visible: !widget.login["getIsLoggedin"](),
+                    child: Column(children: [Container(
+                   height: 160
+                    ,
+                    width: 320,
+                     decoration: BoxDecoration(image: DecorationImage(
+                      image: AssetImage('assets/Greeting3homepage.png'),
+                      fit: BoxFit.fill,
+                    ),
+                
+                    
+                           ) ), Text("Join our Loyalty Program! what are you waiting for?!", style: TextStyle(color: Colors.white),)],)),
+                ),
+                Visibility(
+                  visible: widget.login["getIsLoggedin"](),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Row(
+                          textDirection: widget.arabic["getIsArabic"]()? TextDirection.rtl : TextDirection.ltr,
                           children: [
-                            Text(
-                              widget.arabic["getIsArabic"]()? "جاك ضو" : "Jack Doe",
-                              style: TextStyle(
-                                 fontFamily: "PlayfairDisplay-VariableFont_wght",
-                                color: widget.darkMode["getIsDarkMode"]() ? Color.fromARGB(255, 37, 37, 37) :Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 25,
-                              ),
-                            ),
-                            SizedBox(height: 3,),
-                            Row(
-                              textDirection: widget.arabic["getIsArabic"]()? TextDirection.rtl : TextDirection.ltr,
-                              children: [FaIcon(FontAwesomeIcons.houseUser, color: Colors.white,), SizedBox(width: 10,), 
-                            Text(widget.arabic["getIsArabic"]()? "jack@hotmail.com :البريد" : "Email: jack@hotmail.com", style: TextStyle(color: Colors.white),),], 
-                      
-                            ),
-                           
+                            SizedBox(width: 10,),
+                            Container(
+                                  width: 70 / 412 * screenSize.width,
+                                  height: 70 / 732 * screenSize.height,
+                                  decoration: BoxDecoration(
+                                     boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(0.5),
+                                              blurRadius: 4.0,
+                                              spreadRadius: 4.0,
+                                            ),
+                                          ],
+                                    border: Border.all(width: 2, color: Colors.white),
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        fit: BoxFit.contain,
+                                        image: NetworkImage(
+                                            "https://pbs.twimg.com/media/DZotU1hW0AEDN5F.jpg:large"),
+                                      )),
+                                ),
+                                SizedBox(
+                                  width: 10 / 412 * screenSize.width,
+                                ),
+                                Column(
+                                  crossAxisAlignment: widget.arabic["getIsArabic"]()? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.arabic["getIsArabic"]()? "جاك ضو" : "Jack Doe",
+                                      style: TextStyle(
+                                         fontFamily: "PlayfairDisplay-VariableFont_wght",
+                                        color: widget.darkMode["getIsDarkMode"]() ? Color.fromARGB(255, 37, 37, 37) :Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25,
+                                      ),
+                                    ),
+                                    SizedBox(height: 3,),
+                                    Row(
+                                      textDirection: widget.arabic["getIsArabic"]()? TextDirection.rtl : TextDirection.ltr,
+                                      children: [FaIcon(FontAwesomeIcons.houseUser, color: Colors.white,), SizedBox(width: 10,), 
+                                    Text(widget.arabic["getIsArabic"]()? "jack@hotmail.com :البريد" : "Email: jack@hotmail.com", style: TextStyle(color: Colors.white),),], 
+                              
+                                    ),
+                                   
+                                  ],
+                                ),
                           ],
                         ),
-                  ],
-                ),
-                SizedBox(height: 20,),
-                Center(
-                  child: Container(
-                    
-                    width: 300,
-                      decoration: BoxDecoration(
-                         boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.5), // Set the shadow color
-        spreadRadius: 2, // Set the spread radius of the shadow
-        blurRadius: 9, // Set the blur radius of the shadow
-        //offset: Offset(0, 3), // Set the offset of the shadow
-      ),
-    ],
-                        borderRadius: BorderRadius.circular(100),
-                        color: Colors.white.withOpacity(0.9),
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              Row(
+                        SizedBox(height: 20,),
+                        Center(
+                          child: Container(
+                            
+                            width: 300,
+                              decoration: BoxDecoration(
+                                 boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.5), // Set the shadow color
+                          spreadRadius: 2, // Set the spread radius of the shadow
+                          blurRadius: 9, // Set the blur radius of the shadow
+                          //offset: Offset(0, 3), // Set the offset of the shadow
+                        ),
+                      ],
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.white.withOpacity(0.9),
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                  '5',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                          '5',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                                          ),
+                                          SizedBox(width: 2,), 
+                                          Icon(Icons.star, color: Colors.black,)
+                                        ],
+                                      ),
+                                      SizedBox(
+                          height: 5,
+                                      ),
+                                      Text(
+                          widget.arabic["getIsArabic"]()? "نقاط" :'Points',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(width: 2,), 
-                                  Icon(Icons.star, color: Colors.black,)
+                                  Container(
+                                    height: 30,
+                                    width: 1,
+                                    color: Colors.black,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                          '100',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                                      ),
+                                      SizedBox(
+                          height: 5,
+                                      ),
+                                      Text(
+                          widget.arabic["getIsArabic"]()? "كوبونات" : 'Coupons',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 12,
+                          ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
-                              SizedBox(
-                  height: 5,
-                              ),
-                              Text(
-                  widget.arabic["getIsArabic"]()? "نقاط" :'Points',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                  ),
-                              ),
-                            ],
-                          ),
-                          Container(
-                            height: 30,
-                            width: 1,
-                            color: Colors.black,
-                          ),
-                          Column(
-                            children: [
-                              Text(
-                  '100',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                              ),
-                              SizedBox(
-                  height: 5,
-                              ),
-                              Text(
-                  widget.arabic["getIsArabic"]()? "كوبونات" : 'Coupons',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 12,
-                  ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                        ),
+                      ],
                     ),
+                  ),
                 ),
-      Container(height: 15 / 732 * screenSize.height,),
+      Visibility(
+        visible: widget.login["getIsLoggedin"](),
+        child: Container(height: 15 / 732 * screenSize.height,)),
                           Row(
                             children: [
                               Container(

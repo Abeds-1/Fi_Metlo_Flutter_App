@@ -1,16 +1,15 @@
 import 'package:fimetlo/Screens/EverythingScreens/Drawer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fimetlo/Screens/HomePage.dart';
-import 'package:fimetlo/From_mimi/category_meals_screen.dart';
+import 'package:fimetlo/Categories/category_meals_screen.dart';
 import 'package:fimetlo/meal.dart';
-import 'package:fimetlo/From_mimi/meal_detail_screen.dart';
+import 'package:fimetlo/Categories/meal_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fimetlo/Screens/Navbar.dart';
-import 'package:fimetlo/Screens/Navbar.dart';
 import 'package:fimetlo/Screens/FirstScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'From_mimi/12.1 dummy_data.dart';
+import 'Categories/12.1 dummy_data.dart';
 import 'package:fimetlo/Screens/FavoritesPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -54,6 +53,9 @@ class _MyAppState extends State<MyApp> {
   bool isLoggedin = FirebaseAuth.instance.currentUser != null;
   List<Meal> _availableMeals = DUMMY_MEALS;
   List<Meal> _favoriteMeals = [];
+  double points = 0;
+  double values = 0;
+  late Meal meal;
 
   late Map<String, dynamic> darkMode = {
     "setIsDarkMode": setIsDarkMode,
@@ -205,7 +207,8 @@ class _MyAppState extends State<MyApp> {
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeals, darkMode),
         MealDetailScreen.routeName: (ctx) =>
-            MealDetailScreen(_toggleFavorite, _isMealFavorite, darkMode),
+            MealDetailScreen(_toggleFavorite, _isMealFavorite, darkMode, points,
+              values,),
       },
       debugShowCheckedModeBanner: false,
     );

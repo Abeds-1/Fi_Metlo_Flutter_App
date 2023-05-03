@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../meal.dart';
-import 'package:fimetlo/From_mimi/meal_item.dart';
-import 'package:fimetlo/From_mimi/12.1 dummy_data.dart';
+import 'package:fimetlo/Categories/meal_item.dart';
+import 'package:fimetlo/Categories/12.1%20dummy_data.dart';
 
 class FavoritesPage extends StatefulWidget {
   final darkMode;
@@ -36,6 +36,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             Price: widget.favoriteMeals[index].Price,
             rating: widget.favoriteMeals[index].rating,
             availability: widget.favoriteMeals[index].availability,
+            Description: widget.favoriteMeals[index].Description,
           );
         },
         itemCount: widget.favoriteMeals.length,

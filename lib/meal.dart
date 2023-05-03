@@ -19,7 +19,7 @@ class Meal {
   final int Price;
   final double rating;
   final Availability availability;
-
+  final String Description;
   const Meal(
       {required this.id,
       required this.categories,
@@ -34,5 +34,7 @@ class Meal {
       required this.steps,
       required this.Price,
       required this.rating,
-      required this.availability});
+      required this.availability,
+      required this.Description
+      });
 }

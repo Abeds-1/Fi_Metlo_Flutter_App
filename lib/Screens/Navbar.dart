@@ -25,7 +25,7 @@ class EverythingPage extends StatefulWidget {
 class _EverythingPageState extends State<EverythingPage> {
   int currentIndex = 0;
   GlobalKey<ScaffoldState> _globalKey = GlobalKey<ScaffoldState>();
-  late final pages = [HomePage(globalKey: _globalKey, darkMode: widget.darkMode, arabic: widget.arabic,), FavoritesPage(widget.favoriteMeals, widget.darkMode), PersonalPage(
+  late final pages = [HomePage(globalKey: _globalKey, darkMode: widget.darkMode, arabic: widget.arabic, login:widget.login, guest: widget.guest), FavoritesPage(widget.favoriteMeals, widget.darkMode), PersonalPage(
                               darkMode: widget.darkMode,
                               login: widget.login,
                               guest: widget.guest,
@@ -65,7 +65,7 @@ class _EverythingPageState extends State<EverythingPage> {
       drawer: MainDrawer(login: widget.login, setDefaultCurrentIndex: setDefaultCurrentIndex, guest: widget.guest, darkMode: widget.darkMode, arabic: widget.arabic, notification: widget.notification),
       
     
-      body: currentIndex == 0 ? HomePage(globalKey: _globalKey, darkMode: widget.darkMode, arabic: widget.arabic,) : pages[currentIndex],
+      body: currentIndex == 0 ? HomePage(globalKey: _globalKey, darkMode: widget.darkMode, arabic: widget.arabic, guest: widget.guest, login: widget.login) : pages[currentIndex],
       
       
       bottomNavigationBar: ClipRRect(
